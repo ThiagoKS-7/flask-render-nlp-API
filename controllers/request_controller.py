@@ -5,7 +5,7 @@ from handlers.detect_handler import DetectHandler
 
 
 def checkPostedData(collection,body, functionName):
-  if  all( s for s in ['username', 'password']) not in body:
+  if  all( s not in body for s in ['username', 'password']):
     return {
       "message": "Error: missing required parameter usr/pwd.",
       "status": 401
