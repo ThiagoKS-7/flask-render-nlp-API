@@ -5,7 +5,7 @@ from models.manage_similiarity import Register,Detect, GetUsers,Refill
 app = Flask(__name__)
 api =  Api(app)
  
-title = "Flask Anti-Plagiarism"
+title = "Flask NLP REST API"
 
 
 '''

@@ -2,9 +2,12 @@ import bcrypt
 from datetime import datetime
 
 class RegisterHandler:
+  def __init__(self, collection, body):
+    self.collection = collection
+    self.body = body
   
-  def _handle_insert(self, collection:any, data:any):
-    collection.insert_one({
+  def _handle_insert(self, data:any):
+    self.collection.insert_one({
           "Username":data['usr'],
           "Password":data['hash_pwd'],
           "Text1":"",
@@ -19,11 +22,11 @@ class RegisterHandler:
     "status": 200
     }
 
-  def start(self, collection:any, body:any) -> any:
-      usr = body["username"]
-      pwd = body["password"].encode('utf-8') # precisa passar com encode utf-8
-      if not collection.find_one({'Username': usr}):
-        self._handle_insert(collection, {'usr': usr, 'hash_pwd': bcrypt.hashpw(pwd, bcrypt.gensalt())})
+  def start(self) -> any:
+      usr = self.body["username"]
+      pwd = self.body["password"].encode('utf-8') # precisa passar com encode utf-8
+      if not self.collection.find_one({'Username': usr}):
+        self._handle_insert({'usr': usr, 'hash_pwd': bcrypt.hashpw(pwd, bcrypt.gensalt())})
       return {
         "message":"Error! User already exists.",
         "status": 400

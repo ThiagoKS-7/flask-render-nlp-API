@@ -1,13 +1,14 @@
 
 
 class UsersHandler:
-    def __init__(self):
-        pass
-    def start(collection:any, body:any) -> any:
-        usr = body["username"]
+    def __init__(self, collection, body):
+        self.collection = collection
+        self.body = body
+    def start(self) -> any:
+        usr = self.body["username"]
         
-        if collection.find_one({'Username': usr})["Password"]:
-            tokens = collection.find_one({'Username': usr})["Tokens"]
+        if self.collection.find_one({'Username': usr})["Password"]:
+            tokens = self.collection.find_one({'Username': usr})["Tokens"]
             if tokens <= 0:
                 return {
                     "message":"Error! Not enough tokens.",
@@ -19,7 +20,7 @@ class UsersHandler:
                         "text1":col["Text1"],
                         "text2":col["Text2"],
                         "tokens":col["Tokens"],
-                    } for col in collection.find({},{"Username":1, "Text1":1, "Text2":1, "Tokens":1})]
+                    } for col in self.collection.find({},{"Username":1, "Text1":1, "Text2":1, "Tokens":1})]
                     
             return {
                 "message":"Data successfully retrieved.",

@@ -9,7 +9,7 @@ import os
 ARQUIVO QUE GERENCIA AS CLASSES USADAS NAS ROTAS
 CHAMA O REPOSITÓRIO, QUE CUIDA DAS VALIDAÇÕES DA REQUEST
 '''
-path = f"mongodb+srv://{os.environ.get('USER')}:<{os.environ.get('PASSWORD')}>@mymongo.otbi0bn.mongodb.net/?retryWrites=true&w=majority"
+path = f"mongodb+srv://{(os.environ.get('USER')).capitalize()}:<{os.environ.get('PASSWORD')}>@mymongo.otbi0bn.mongodb.net/?retryWrites=true&w=majority"
 client = MongoClient(path, 27017)
 db = client.SimiliarityDatabase
 # nova colecttion de nome Users

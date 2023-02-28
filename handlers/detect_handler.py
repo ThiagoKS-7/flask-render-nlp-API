@@ -2,16 +2,17 @@ from datetime import datetime
 import spacy
 
 class DetectHandler:
-    def __init__(self):
-        pass
-    def handle_detection(self, collection: any, usr:str, ratio:any, tokens:any) -> any:
+    def __init__(self, collection, body):
+        self.collection = collection
+        self.body = body
+    def handle_detection(self, usr:str, ratio:any, tokens:any) -> any:
         if tokens <= 0:
             return {
             "message":"Error! Not enough tokens.",
             "status": 401
             }
         tokens -= 1
-        collection.update_one(
+        self.collection.update_one(
             {'Username': usr}, 
             {
                 "$set": {
@@ -26,13 +27,13 @@ class DetectHandler:
         "Tokens": tokens,
         "status": 200,
         }
-    def start(self, collection: any, body:any) -> any:
-        usr = body["username"]
+    def start(self) -> any:
+        usr = self.body["username"]
         nlp = spacy.load("en_core_web_sm")
-        ratio = nlp(body["text1"]).similarity(nlp(body["text2"]))
+        ratio = nlp(self.body["text1"]).similarity(nlp(self.body["text2"]))
         
-        if collection.find_one({'Username': usr})["Password"]:
-            self.handle_detection(collection, usr, ratio, collection.find_one({'Username': usr})["Tokens"])
+        if self.collection.find_one({'Username': usr})["Password"]:
+            self.handle_detection(self.collection, usr, ratio, self.collection.find_one({'Username': usr})["Tokens"])
         return {
             "message":"Error! User or password incorrect.",
             "status": 400
