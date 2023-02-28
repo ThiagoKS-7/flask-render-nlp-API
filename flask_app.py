@@ -1,6 +1,6 @@
 from flask import Flask,render_template
 from flask_restful import Api 
-from models.resources.manage_similiarity import Register,Detect, GetUsers,Refill
+from models.manage_similiarity import Register,Detect, GetUsers,Refill
 
 app = Flask(__name__)
 api =  Api(app)
