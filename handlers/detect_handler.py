@@ -1,5 +1,3 @@
-import bcrypt
-from flask import Response
 from datetime import datetime
 import spacy
 
@@ -24,9 +22,9 @@ class DetectHandler:
             }
         )
         return {
-            "message":"Sentence successfully saved.",
-            "Tokens": tokens,
-            "status": 200,
+        "message":"Sentence successfully saved.",
+        "Tokens": tokens,
+        "status": 200,
         }
     def start(self, collection: any, body:any) -> any:
         usr = body["username"]
