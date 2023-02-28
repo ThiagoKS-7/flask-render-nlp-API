@@ -1,4 +1,5 @@
 python-dotenv
+dns-python
 Flask
 flask_restful
 pymongo
