@@ -1,33 +1,24 @@
-from flask import Flask,render_template
-from flask_restful import Api 
-from models.manage_similiarity import Register,Detect, GetUsers,Refill
+from flask import Flask, render_template
+from flask_restful import Api
+from models.User import GetUsers, Register
+from models.Nlp import Detect
+from models.Tokens import Tokens
+
+def api():
+  return Api(app())
 
 app = Flask(__name__)
-api =  Api(app)
- 
-title = "Flask NLP REST API"
+api = Api(app)
 
-
-'''
-***********************
-  *       API ROUTES    *
-  ***********************
-'''
 api.add_resource(Register, '/register')
 api.add_resource(Detect, '/detect')
 api.add_resource(GetUsers, '/get-users')
-api.add_resource(Refill, '/refill')
+api.add_resource(Tokens, '/refill')
 
-'''
-***********************
-*       APP ROUTES    *
-***********************
-'''
 @app.route('/')
 def hello_world():
-  return render_template('index.html', title=title)
+  return render_template('index.html', title="Flask NLP REST API")
 
 
 if __name__ == '__main__':
   app.run(debug=True)
-
