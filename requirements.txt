@@ -1,7 +1,10 @@
 python-dotenv
 dns-python
 Flask
+Gunicorn
 flask_restful
 pymongo
+pymongo[srv]
+python-decouple
 bcrypt
 spacy

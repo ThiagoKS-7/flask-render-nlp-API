@@ -18,7 +18,3 @@ api.add_resource(Tokens, '/refill')
 @app.route('/')
 def hello_world():
   return render_template('index.html', title="Flask NLP REST API")
-
-
-if __name__ == '__main__':
-  app.run(debug=True)
