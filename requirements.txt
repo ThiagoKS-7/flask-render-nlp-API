@@ -1,5 +1,4 @@
 python-dotenv
-dns-python
 Flask
 Gunicorn
 flask_restful
