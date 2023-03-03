@@ -1,11 +1,12 @@
 
 from flask import Response
-from handlers.register_handler import RegisterHandler
-from handlers.detect_handler import DetectHandler
+from repositories.register_dao import RegisterDao
+from repositories.detect_dao import DetectDao
+from repositories.users_dao import UsersDao
 
 
 
-def checkPostedData(collection,body, functionName):
+def check_data(collection,body, functionName):
   if  all( s not in body for s in ['username', 'password']):
     return {
       "message": "Error: missing required parameter usr/pwd.",
@@ -13,16 +14,17 @@ def checkPostedData(collection,body, functionName):
     }
     
   handlers = {
-    "register": RegisterHandler(collection, body),
-    "detect": DetectHandler(collection, body),
+    "register": RegisterDao(collection, body),
+    "detect": DetectDao(collection, body),
+    "get-users": UsersDao(collection, body),
   }
 
   if functionName in handlers:
     return handlers[functionName].start()
   
 
-def handleRequest(collection,body, routeName):
+def handle_request(collection,body, routeName):
     try:  
-      return  checkPostedData(collection,body, routeName)
+      return  check_data(collection,body, routeName)
     except Exception as e:
       return Response("Error!  " + str(e),status=400)

@@ -1,6 +1,6 @@
 
 
-class UsersHandler:
+class UsersDao:
     def __init__(self, collection, body):
         self.collection = collection
         self.body = body

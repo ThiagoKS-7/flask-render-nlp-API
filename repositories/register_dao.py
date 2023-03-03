@@ -1,7 +1,7 @@
 import bcrypt
 from datetime import datetime
 
-class RegisterHandler:
+class RegisterDao:
   def __init__(self, collection, body):
     self.collection = collection
     self.body = body

@@ -1,7 +1,7 @@
 from datetime import datetime
 import spacy
 
-class DetectHandler:
+class DetectDao:
     def __init__(self, collection, body):
         self.collection = collection
         self.body = body
